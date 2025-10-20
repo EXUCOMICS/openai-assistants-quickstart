@@ -6,6 +6,7 @@ export async function POST(request) {
   const formData = await request.formData(); // process file as FormData
   const file = formData.get("file"); // retrieve the single file from FormData
   const vectorStoreId = await getOrCreateVectorStore(); // get or create vector store
+console.log("Vector Store ID in use (GET):", vectorStoreId);
 
   // upload using the file stream
   const openaiFile = await openai.files.create({
@@ -24,6 +25,7 @@ export async function POST(request) {
 export async function GET() {
   const vectorStoreId = await getOrCreateVectorStore(); // get or create vector store
   const fileList = await openai.beta.vectorStores.files.list(vectorStoreId);
+console.log("Vector Store ID in use (POST):", vectorStoreId);
 
   const filesArray = await Promise.all(
     fileList.data.map(async (file) => {
@@ -48,6 +50,7 @@ export async function DELETE(request) {
   const fileId = body.fileId;
 
   const vectorStoreId = await getOrCreateVectorStore(); // get or create vector store
+  console.log("Vector Store ID in use (POST):", vectorStoreId);
   await openai.beta.vectorStores.files.del(vectorStoreId, fileId); // delete file from vector store
 
   return new Response();
@@ -57,6 +60,7 @@ export async function DELETE(request) {
 
 const getOrCreateVectorStore = async () => {
   const assistant = await openai.beta.assistants.retrieve(assistantId);
+
 
   // if the assistant already has a vector store, return it
   if (assistant.tool_resources?.file_search?.vector_store_ids?.length > 0) {
@@ -75,4 +79,4 @@ const getOrCreateVectorStore = async () => {
   });
   return vectorStore.id;
 };
-console.log("Vector Store ID in use:", vectorStoreId);
+
