@@ -18,37 +18,26 @@ const FunctionCalling = () => {
     return JSON.stringify(data);
   };
 
-  // return (
-  //   <main className={styles.main}>
-  //     <div className={styles.container}>
-  //       <div className={styles.fileViewer}>
-  //         <FileViewer />
-  //       </div>
-  //       <div className={styles.chatContainer}>
-  //         <div className={styles.weatherWidget}>
-  //           <div className={styles.weatherContainer}>
-  //             <WeatherWidget {...weatherData} />
-  //           </div>
-  //         </div>
-  //         <div className={styles.chat}>
-  //           <Chat functionCallHandler={functionCallHandler} />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </main>
-  // );
-
   return (
     <main className={styles.main}>
+      {/*  Logo section */}
+      <div className={styles.logoContainer}>
+        <img
+          src="/EXU-LOGO.png"
+          alt="EXU Logo"
+          className={styles.logo}
+        />
+      </div>
+
+      {/*  Chat layout */}
       <div className={styles.container}>
         <div className={styles.column}>
           <WeatherWidget {...weatherData} />
           <FileViewer />
         </div>
+
         <div className={styles.chatContainer}>
-          <div className={styles.chat}>
-            <Chat functionCallHandler={functionCallHandler} />
-          </div>
+          <Chat functionCallHandler={functionCallHandler} />
         </div>
       </div>
     </main>

@@ -75,3 +75,4 @@ const getOrCreateVectorStore = async () => {
   });
   return vectorStore.id;
 };
+console.log("Vector Store ID in use:", vectorStoreId);

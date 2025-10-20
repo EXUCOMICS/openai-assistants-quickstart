@@ -7,39 +7,72 @@
 
 .inputForm {
   display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
   width: 100%;
   padding: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   order: 1;
 }
 
 .input {
-  flex-grow: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
   padding: 16px 24px;
   margin-right: 10px;
   border-radius: 60px;
   border: 2px solid transparent;
   font-size: 1em;
-  background-color: #efefef;
+  background-color: #0b0b0b;                /* dark input looks great on black bg */
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(138, 0, 57, 0.6);/* subtle magenta glow */
 }
 
 .input:focus {
   outline: none !important;
-  border-color: #000;
-  background-color: white;
+  border-color: #8a0039;                     /* crisp border on focus */
+  background-color: #0b0b0b;
+  box-shadow: 0 0 20px rgba(138, 0, 57, 0.9);/* brighter glow on focus */
 }
 
+
 .button {
+  flex: 0 0 auto;
   padding: 8px 24px;
-  background-color: #000;
-  color: white;
-  border: none;
+  background-color: #8a0039;               /* Same color as user bubble */
+  color: #ffffff;
+  border: 1px solid #8a0039;
+  border-radius: 60px;
   font-size: 1em;
-  border-radius: 60px; /* Removed duplicate border-radius property */
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(138, 0, 57, 0.6);  /* soft magenta glow */
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  box-shadow: 0 0 18px rgba(138, 0, 57, 0.9);  /* brighter glow */
+  transform: scale(1.03);                      /* slight hover lift */
+}
+
+.button:active {
+  transform: scale(0.97);                      /* press effect */
+  box-shadow: 0 0 8px rgba(138, 0, 57, 0.8);
 }
 
 .button:disabled {
-  background-color: lightgrey;
+  background-color: #3f3f3f;
+  color: #aaaaaa;
+  border: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+
+.button:disabled {
+  background-color: rgb(110, 110, 110);
 }
 
 .messages {
@@ -71,17 +104,35 @@
 
 .userMessage {
   align-self: flex-end;
-  color: #fff;
-  background-color: #000;
+  color: #ffffff;
+  background-color: #8a0039;                 /* keep your color */
+  border-radius: 16px;                        /* in case base styles change later */
+  overflow-wrap: break-word;
+  box-shadow: 0 0 12px rgba(138, 0, 57, 0.8); /* glow same as bubble color */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.userMessage:hover {
+  box-shadow: 0 0 20px rgba(138, 0, 57, 1);   /* brighter on hover */
+  transform: scale(1.01);
 }
 
+
 .assistantMessage {
-  background-color: #efefef;
+  background-color: #3f3f3f;                  /* your gray */
+  color: #ffffff;                              /* ensure contrast */
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(63, 63, 63, 0.8);  /* glow same as bubble color */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
+.assistantMessage:hover {
+  box-shadow: 0 0 20px rgba(63, 63, 63, 1);    /* brighter on hover */
+  transform: scale(1.01);
+}
+
 
 .codeMessage {
   padding: 10px 16px;
-  background-color: #e9e9e9;
+  background-color: #3f3f3f;
   font-family: monospace;
   counter-reset: line;
 }
@@ -91,6 +142,6 @@
 }
 
 .codeMessage span {
-  color: #b8b8b8;
+  color: #7c0030;
   margin-right: 8px;
 }
