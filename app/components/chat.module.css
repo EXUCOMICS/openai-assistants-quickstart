@@ -1,8 +1,10 @@
 .chatContainer {
   display: flex;
-  flex-direction: column-reverse;
-  height: 100%;
-  width: 100%;
+  flex-direction: column;
+  max-height: 450px;
+  width: min(600px, 75vw);
+  margin: 3 auto;
+  gap: 10px;
 }
 
 .inputForm {
@@ -10,51 +12,73 @@
   align-items: center;
   width: 100%;
   gap: 12px;
-  width: 100%;
+  max-width: 720px;
   padding: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   order: 1;
+  
 }
 
 .input {
   flex: 1 1 auto;
-  min-width: 0;
+  min-width: 100%;
   width: 100%;
+  gap: 20px;
   padding: 16px 24px;
-  margin-right: 10px;
+  margin-right: 0px;
   border-radius: 60px;
   border: 2px solid transparent;
-  font-size: 1em;
+  font-size: 0.975em;
   background-color: #0b0b0b;                /* dark input looks great on black bg */
   color: #ffffff;
   box-shadow: 0 0 18px rgba(138, 0, 57, 0.6);/* subtle magenta glow */
+  
 }
 
-.input:focus {
+.input {
   outline: none !important;
   border-color: #8a0039;                     /* crisp border on focus */
   background-color: #0b0b0b;
   box-shadow: 0 0 20px rgba(138, 0, 57, 0.9);/* brighter glow on focus */
+   transition: all 0.3s ease-in-out;
+  
+
+}
+.input:hover 
+{
+   border-color: #8a0039;                     /* crisp border on focus */
+  background-color: #0b0b0b;
+  box-shadow: 0 0 35px   rgba(138, 0, 57, 0.9);/* brighter glow on focus */
+  transform:scale(1.02);
+  transition: all 0.3s ease-in-out;
+
 }
 
-
+.input:focus {
+  border-color: #8a0039;                     /* crisp border on focus */
+  background-color: #0b0b0b;
+  box-shadow: 0 0 24px rgba(138, 0, 57, 0.9);/* brighter glow on focus */ 
+  
+}
 .button {
   flex: 0 0 auto;
   padding: 8px 24px;
   background-color: #8a0039;               /* Same color as user bubble */
   color: #ffffff;
+  gap: 20px;
   border: 1px solid #8a0039;
   border-radius: 60px;
-  font-size: 1em;
+  font-size: 0.975em;
   font-weight: 500;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(138, 0, 57, 0.6);  /* soft magenta glow */
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .button:hover {
   box-shadow: 0 0 18px rgba(138, 0, 57, 0.9);  /* brighter glow */
-  transform: scale(1.03);                      /* slight hover lift */
+  transform:scale(1.10);
+  transition: all 0.3s ease-in-out;
 }
 
 .button:active {
@@ -76,57 +100,93 @@
 }
 
 .messages {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 10px;
   display: flex;
-  flex-direction: column;
-  order: 2;
-  white-space: pre-wrap;
-}
+  flex-direction: column;   /* stack messages vertically */
+  align-items: stretch;     /* let children control their own side */
+  align-self: stretch; width: 110%; 
+  gap: 25px;
+  max-height: clamp(660px, 70vh, 450px);
+  overflow-y: auto;
+  overflow-x: visible;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  padding-left: 14px;
+  padding-right: 14px;
+  transition: all 0.3s ease-in-out;
 
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 38px,
+    black calc(100% - 38px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 38px,
+    black calc(100% - 38px),
+    transparent 100%
+  );
+}
 .userMessage,
 .assistantMessage,
 .codeMessage {
-  margin: 8px 0;
+  margin: 18px 0;
+  align-items:center;
   padding: 8px 16px;
-  align-self: flex-start;
-  border-radius: 15px;
-  max-width: 80%;
+  align-self: flex-start; /* left side */
+  border-radius: 30px;
+  max-width: 100%;
   overflow-wrap: break-word;
+  font-size: 0.975em;
 }
 
 .assistantMessage img {
   max-width: 100%;
   margin: 8px 0px 8px 0px;
-  border-radius: 8px;
+  border-radius:20px;
 }
 
 .userMessage {
-  align-self: flex-end;
-  color: #ffffff;
-  background-color: #8a0039;                 /* keep your color */
-  border-radius: 16px;                        /* in case base styles change later */
-  overflow-wrap: break-word;
-  box-shadow: 0 0 12px rgba(138, 0, 57, 0.8); /* glow same as bubble color */
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  align-self: flex-end;         /* ➜ right side */
+  background-color: #8a0039;    /* your user color */
+  color: #fff;
+  max-width: 75%;
+  border-radius: 16px;
+  border-top-right-radius: 15px; /* subtle asymmetry */
+  box-shadow: 0 0 18px rgba(138, 0, 57, 0.35);  /* glow matching bubble */
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  transition: all 0.3s ease-in-out;
 }
 .userMessage:hover {
   box-shadow: 0 0 20px rgba(138, 0, 57, 1);   /* brighter on hover */
-  transform: scale(1.01);
+  transform:scale(1.07);
+  transition: all 0.3s ease;
 }
 
 
 .assistantMessage {
-  background-color: #3f3f3f;                  /* your gray */
-  color: #ffffff;                              /* ensure contrast */
-  border-radius: 16px;
-  box-shadow: 0 0 12px rgba(63, 63, 63, 0.8);  /* glow same as bubble color */
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  align-self: flex-start;       /* ➜ left side */
+  background-color: #3f3f3f;    /* your assistant color */
+  color: #fff;
+  max-width: 60%;
+  border-radius: 20px;
+  border-top-left-radius: 15px;
+  box-shadow: 0 0 18px rgba(63, 63, 63, 0.35);  /* glow matching bubble */
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+   transition: all 0.3s ease-in-out;
 }
 .assistantMessage:hover {
   box-shadow: 0 0 20px rgba(63, 63, 63, 1);    /* brighter on hover */
-  transform: scale(1.01);
+  transform:scale(1.02);
+  transition: all 0.3s ease;
+ 
 }
 
 

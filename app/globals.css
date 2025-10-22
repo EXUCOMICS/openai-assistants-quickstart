@@ -80,7 +80,7 @@ pre {
 /* Firefox */
 * {
   scrollbar-width: thin;                 /* thin track */
-  scrollbar-color: #ffffff #000000;      /* white knob, black track */
+  scrollbar-color: #6c002b #000000;      /* white knob, black track */
 }
 
 /* WebKit (Chrome, Edge, Safari) */
@@ -94,13 +94,13 @@ pre {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ffffff;              /* white knob */
+  background-color: #84002a;              /* white knob */
   border-radius: 10px;
   border: 2px solid #000000;              /* black ring around knob */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #e6e6e6;              /* subtle hover */
+  background-color: #59001c;              /* subtle hover */
 }
 
 /* If a nested container is the one that scrolls, style it explicitly too */

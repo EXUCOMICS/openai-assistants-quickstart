@@ -65,14 +65,15 @@ const Chat = ({
   const [inputDisabled, setInputDisabled] = useState(false);
   const [threadId, setThreadId] = useState("");
 
-  // automatically scroll to bottom of chat
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // Scroll only the messages container (not the whole page)
+const messagesWrapRef = useRef<HTMLDivElement | null>(null);
+
+const scrollMessagesToBottom = () => {
+  const el = messagesWrapRef.current;
+  if (!el) return;
+  el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+};
+
 
   // create a new threadID when chat component created
   useEffect(() => {
@@ -128,7 +129,7 @@ const Chat = ({
     ]);
     setUserInput("");
     setInputDisabled(true);
-    scrollToBottom();
+    requestAnimationFrame(() => scrollMessagesToBottom());
   };
 
   /* Stream Event Handlers */
@@ -146,11 +147,15 @@ const Chat = ({
     if (delta.annotations != null) {
       annotateLastMessage(delta.annotations);
     }
+    //
+    scrollMessagesToBottom();
   };
 
   // imageFileDone - show image in chat
   const handleImageFileDone = (image) => {
     appendToLastMessage(`\n![${image.file_id}](/api/files/${image.file_id})\n`);
+    // add this
+    scrollMessagesToBottom();
   }
 
   // toolCallCreated - log new tool call
@@ -250,12 +255,11 @@ const Chat = ({
 
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.messages}>
-        {messages.map((msg, index) => (
-          <Message key={index} role={msg.role} text={msg.text} />
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
+<div className={styles.messages} ref={messagesWrapRef}>
+  {messages.map((msg, index) => (
+    <Message key={index} role={msg.role} text={msg.text} />
+  ))}
+</div>
       <form
         onSubmit={handleSubmit}
         className={`${styles.inputForm} ${styles.clearfix}`}
@@ -265,7 +269,7 @@ const Chat = ({
           className={styles.input}
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Ask, and ye shall find, Seeker..."
+          placeholder="Ask & ye shall find, Seeker..."
         />
         <button
           type="submit"

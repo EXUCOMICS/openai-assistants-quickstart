@@ -1,47 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./page.module.css";
-import Chat from "../../components/chat";
-import WeatherWidget from "../../components/weather-widget";
-import { getWeather } from "../../utils/weather";
-import FileViewer from "../../components/file-viewer";
+import Chat from "@/app/components/chat";
 
-const FunctionCalling = () => {
-  const [weatherData, setWeatherData] = useState({});
-
-  const functionCallHandler = async (call) => {
-    if (call?.function?.name !== "get_weather") return;
-    const args = JSON.parse(call.function.arguments);
-    const data = getWeather(args.location);
-    setWeatherData(data);
-    return JSON.stringify(data);
-  };
-
+export default function AllExample() {
   return (
     <main className={styles.main}>
-      {/*  Logo section */}
-      <div className={styles.logoContainer}>
-        <img
-          src="/EXU-LOGO.png"
-          alt="EXU Logo"
-          className={styles.logo}
-        />
-      </div>
+      {/* Logo (simple block; no sticky/fixed) */}
+      <img
+        src="/EXU-LOGO.png"      // <-- make sure this is in /public
+        alt="EXU Logo"
+        className={styles.logo}
+      />
 
-      {/*  Chat layout */}
-      <div className={styles.container}>
-        <div className={styles.column}>
-          <WeatherWidget {...weatherData} />
-          <FileViewer />
+      {/* Perfectly centered chat area */}
+      <section className={styles.chatWrap}>
+        <div className={styles.chatblock}>
+          <Chat />
         </div>
-
-        <div className={styles.chatContainer}>
-          <Chat functionCallHandler={functionCallHandler} />
-        </div>
-      </div>
+      </section>
     </main>
   );
-};
+}
 
-export default FunctionCalling;
