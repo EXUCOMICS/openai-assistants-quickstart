@@ -28,7 +28,7 @@
   margin-right: 0px;
   border-radius: 60px;
   border: 2px solid transparent;
-  font-size: 0.975em;
+  font-size: 0.950em;
   background-color: #0b0b0b;                /* dark input looks great on black bg */
   color: #ffffff;
   box-shadow: 0 0 18px rgba(138, 0, 57, 0.6);/* subtle magenta glow */
@@ -68,7 +68,7 @@
   gap: 20px;
   border: 1px solid #8a0039;
   border-radius: 60px;
-  font-size: 0.975em;
+  font-size: 0.950sem;
   font-weight: 500;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(138, 0, 57, 0.6);  /* soft magenta glow */
