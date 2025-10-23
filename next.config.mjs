@@ -4,7 +4,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/:(.*)", // all routes
+        source: "/:path*", // all routes
         headers: [
           // Only these sites can frame/iframe your app
           {
