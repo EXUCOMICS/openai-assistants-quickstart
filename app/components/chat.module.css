@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   max-height: 450px;
-  width: min(600px, 75vw);
+  width: min(500px, 75vw);
   margin: 3 auto;
   gap: 10px;
 }
@@ -12,7 +12,7 @@
   align-items: center;
   width: 100%;
   gap: 12px;
-  max-width: 720px;
+  max-width: 620px;
   padding: 10px;
   padding-bottom: 10px;
   order: 1;

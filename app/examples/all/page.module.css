@@ -13,7 +13,7 @@
 /* Chat container stays perfectly centered & constrained */
 .chatWrap {
   width: 100%;
-  max-width: 1200px;          /* adjust to taste */
+  max-width: 1600px;          /* adjust to taste */
   margin: 0 auto;           /* center horizontally */
   display: flex;
   flex-direction: column;
