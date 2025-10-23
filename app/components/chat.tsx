@@ -7,6 +7,11 @@ import Markdown from "react-markdown";
 // @ts-expect-error - no types for this yet
 import { AssistantStreamEvent } from "openai/resources/beta/assistants/assistants";
 import { RequiredActionFunctionToolCall } from "openai/resources/beta/threads/runs/runs";
+const exuHeaders = {
+  'Content-Type': 'application/json',
+  'X-EXU-Embed-Key': process.env.NEXT_PUBLIC_EMBED_TOKEN || '',
+} as HeadersInit;
+
 
 type MessageProps = {
   role: "user" | "assistant" | "code";
@@ -80,6 +85,7 @@ const scrollMessagesToBottom = () => {
     const createThread = async () => {
       const res = await fetch(`/api/assistants/threads`, {
         method: "POST",
+        headers: exuHeaders,
       });
       const data = await res.json();
       setThreadId(data.threadId);
@@ -92,6 +98,7 @@ const scrollMessagesToBottom = () => {
       `/api/assistants/threads/${threadId}/messages`,
       {
         method: "POST",
+        headers: exuHeaders,
         body: JSON.stringify({
           content: text,
         }),
