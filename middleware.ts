@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 const ALLOWED_ORIGINS = new Set<string>([
   "http://localhost:3000",             // local dev
   "https://openai-assistants-quickstart-bf8w-fi70c3v4n.vercel.app",   // your Vercel preview URL (exact)
-  "https://exucomics.com/ask-hemeic-memora",             // your site
-  "https://www.exucomics.com/ask-hemeic-memora",         // www version
+  "https://exucomics.com",             // your site
+  "https://www.exucomics.com",         // www version
 ]);
 
 export function middleware(req: Request) {
