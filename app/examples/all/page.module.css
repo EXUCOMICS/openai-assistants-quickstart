@@ -6,14 +6,14 @@
   align-items: center;      /* horizontal centering for column layout */
   justify-content: flex-start;
   background: #000000;         /* your site bg */
-  padding: 32px 16px 96px;  /* bottom padding so input isn’t glued to edge */
+  padding: 32px 8px 96px;  /* bottom padding so input isn’t glued to edge */
   box-sizing: border-box;
 }
 
 /* Chat container stays perfectly centered & constrained */
 .chatWrap {
   width: 100%;
-  max-width: 980px;          /* adjust to taste */
+  max-width: 1200px;          /* adjust to taste */
   margin: 0 auto;           /* center horizontally */
   display: flex;
   flex-direction: column;
