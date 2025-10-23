@@ -3,10 +3,14 @@ import { NextResponse } from "next/server";
 
 const ALLOWED_ORIGINS = new Set<string>([
   "http://localhost:3000",             // local dev
-  "https://openai-assistants-quickstart-59h8-hjwj2h9be.vercel.app",   // your Vercel preview URL (exact)
-  "https://exucomics.com",             // your site
+  "https://openai-assistants-quickstart-59h8-9xwteb0oj.vercel.app",   // your Vercel preview URL (exact)
+  "https://exucomics.com",
+              // your site
   "https://www.exucomics.com",
-  "https://sandbox.weebly.com",        
+  "https://sandbox.weebly.com",
+  "https://www.sandbox.weebly.com",
+  "https://weebly.com",
+  "https://www.weebly.com",        
 ]);
 
 export function middleware(req: Request) {
