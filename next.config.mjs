@@ -1,20 +1,23 @@
-// next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+
   async headers() {
     return [
       {
-        source: "/:path*", // all routes
+        // apply to every route (pages AND assets)
+        source: '/:path*',
         headers: [
-          // Only these sites can frame/iframe your app
           {
-            key: "Content-Security-Policy",
-            // Add ONLY the hosts that should be allowed to embed your chat:
+            key: 'Content-Security-Policy',
             value:
-              "frame-ancestors 'self' https://exucomics.com https://www.exucomics.com https://openai-assistants-quickstart-59h8-hjwj2h9be.vercel.app https://sandbox.weebly.com https://www.sandbox.weebly.com https://weebly.com https://www.weebly.com;",
+              "frame-ancestors 'self' https://exucomics.com https://www.exucomics.com https://weebly.com https://www.weebly.com https://sandbox.weebly.com",
           },
-          // Optional: tell proxies/browsers this varies by Origin
-          { key: "X-Frame-Options", value: "ALLOW-FROM https://sandbox.weebly.com" },
+          // Optional; modern browsers ignore ALLOW-FROM, CSP above is what matters.
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOW-FROM https://sandbox.weebly.com',
+          },
         ],
       },
     ];
@@ -22,3 +25,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
