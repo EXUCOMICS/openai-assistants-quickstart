@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const ALLOWED_ORIGINS = new Set<string>([
   "http://localhost:3000",             // local dev
-  "https://openai-assistants-quickstart-59h8-9xwteb0oj.vercel.app",   // your Vercel preview URL (exact)
+  "https://openai-assistants-quickstart-59h8-aj6aj16mf.vercel.app",   // your Vercel preview URL (exact)
   "https://exucomics.com",
               // your site
   "https://www.exucomics.com",
