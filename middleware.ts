@@ -1,27 +1,24 @@
 // app/middleware.ts
 import { NextResponse } from "next/server";
 
-const ALLOWED_ORIGINS = new Set<string>([
-  "http://localhost:3000",             // local dev
-  "https://openai-assistants-quickstart-59h8-aj6aj16mf.vercel.app",   // your Vercel preview URL (exact)
-  "https://exucomics.com",
-              // your site
+const ALLOWED_EMBEDDERS = new Set<string>([
   "https://www.exucomics.com",
+  "https://exucomics.com",
   "https://sandbox.weebly.com",
-  "https://www.sandbox.weebly.com",
-  "https://weebly.com",
-  "https://www.weebly.com",        
+  "https://www.weebly.com",
 ]);
 
 export function middleware(req: Request) {
-  const origin = req.headers.get("origin") || "";
   const url = new URL(req.url);
+  const origin = req.headers.get("origin") || "";
+  const thisOrigin = `${url.protocol}//${url.host}`;
+  const sameOrigin = !origin || origin === thisOrigin;
 
-  // CORS preflight
+  // Allow CORS preflight for allowed origins
   if (req.method === "OPTIONS") {
     const res = new NextResponse(null, { status: 204 });
-    if (ALLOWED_ORIGINS.has(origin)) {
-      res.headers.set("Access-Control-Allow-Origin", origin);
+    if (sameOrigin || ALLOWED_EMBEDDERS.has(origin)) {
+      res.headers.set("Access-Control-Allow-Origin", sameOrigin ? thisOrigin : origin);
       res.headers.set("Vary", "Origin");
       res.headers.set("Access-Control-Allow-Credentials", "true");
       res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
@@ -30,19 +27,13 @@ export function middleware(req: Request) {
     return res;
   }
 
-  // Protect ONLY API routes
+  // Protect ONLY API routes; pages can be embedded freely
   if (url.pathname.startsWith("/api/")) {
-    // Allow same-origin (no Origin header, or Origin === this app)
-    const isSameOrigin = !origin || origin === url.origin;
-
-    // Block if it's cross-origin and not in the allow-list
-    if (!isSameOrigin && !ALLOWED_ORIGINS.has(origin)) {
+    if (!(sameOrigin || ALLOWED_EMBEDDERS.has(origin))) {
       return new NextResponse("Forbidden", { status: 403 });
     }
-
-    // For allowed cross-origin, return proper CORS headers
     const res = NextResponse.next();
-    if (ALLOWED_ORIGINS.has(origin)) {
+    if (!sameOrigin) {
       res.headers.set("Access-Control-Allow-Origin", origin);
       res.headers.set("Vary", "Origin");
       res.headers.set("Access-Control-Allow-Credentials", "true");
@@ -53,7 +44,5 @@ export function middleware(req: Request) {
   return NextResponse.next();
 }
 
-// Run this middleware only on /api/*
-export const config = {
-  matcher: ["/api/:path*"],
-};
+// Run only on API
+export const config = { matcher: ["/api/:path*"] };
