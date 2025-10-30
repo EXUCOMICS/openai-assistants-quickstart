@@ -11,7 +11,7 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value:
-              "frame-ancestors 'self' https://exucomics.com, https://www.exucomics.com, https://weebly.com, https://www.weebly.com, https://sandbox.weebly.com",
+              "frame-ancestors 'self' https://exucomics.com https://www.exucomics.com https://weebly.com https://www.weebly.com https://sandbox.weebly.com",
           },
           // Optional; modern browsers ignore ALLOW-FROM, CSP above is what matters.
           {
