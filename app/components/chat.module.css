@@ -2,18 +2,19 @@
   display: flex;
   flex-direction: column;
   max-height: 450px;
-  width: min(950px, 75vw); 
-  margin: 3 auto;
+  align-items: center;
+  width: min(600px, 70vw);
+  margin: 0 auto;
   gap: 10px;
 }
 
 .inputForm {
   display: flex;
   align-items: center;
-  width: 95%;
+  width: 100%;
   gap: 12px;
-  max-width: 620px;
-  padding:5px;
+  max-width: 720px;
+  padding: 10px 16px;
   padding-bottom: 10px;
   order: 1;
   
@@ -21,14 +22,14 @@
 
 .input {
   flex: 1 1 auto;
-  min-width: 95%;
-  width: 95%;
+  min-width: 100%;
+  width: 120%;
   gap: 20px;
-  padding: 16px 24px;
+  padding: 20px 38px;
   margin-right: 0px;
   border-radius: 60px;
   border: 2px solid transparent;
-  font-size: 0.950em;
+  font-size: 0.940em;
   background-color: #0b0b0b;                /* dark input looks great on black bg */
   color: #ffffff;
   box-shadow: 0 0 18px rgba(138, 0, 57, 0.6);/* subtle magenta glow */
@@ -42,6 +43,46 @@
   box-shadow: 0 0 20px rgba(138, 0, 57, 0.9);/* brighter glow on focus */
    transition: all 0.3s ease-in-out;
   
+   /* stack input + button vertically */
+.inputForm { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* centers the button */
+  gap: 10px;
+  width: 120%;
+  padding:14px 32px;
+}
+
+/* make the input row fill width */
+.inputWrapper {
+  width: 650px, 92vw;
+  max-width: 700px 96vw;
+  padding: 16px 32px;
+}
+
+/* ensure the input can expand */
+.input {
+  width: 100%;
+  max-width: 700px 98vw;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 16px 32px;
+}
+
+/* ONLY width/placement for the button (glow stays from .button) */
+.buttonWide {
+  width: 50% !important;        /* almost full width to match the input */
+  max-width: 400px 92vw;  /* cap so it doesn’t get silly-wide on desktop */
+  align-self: center;
+  margin-top: 8px;
+}
+
+@media (max-width: 400px) {
+  .buttonWide {
+    width: 90%;
+  }
+}
+
 
 }
 .input:hover 
@@ -62,12 +103,12 @@
 }
 .button {
   flex: 0 0 auto;
-  padding: 0 10px;
+  padding: 8px 24px;
   background-color: #8a0039;               /* Same color as user bubble */
   color: #ffffff;
-  gap: 15px;
+  gap: 20px;
   border: 1px solid #8a0039;
-  border-radius: 60px;
+  border-radius: 80px;
   font-size: 0.950sem;
   font-weight: 500;
   cursor: pointer;
@@ -103,9 +144,9 @@
   display: flex;
   flex-direction: column;   /* stack messages vertically */
   align-items: stretch;     /* let children control their own side */
-  align-self: stretch; width: 110%; 
+  align-self: stretch; width: 100%; 
   gap: 25px;
-  max-height: clamp(660px, 70vh, 450px);
+  max-height: clamp(600px, 70vh, 470px);
   overflow-y: auto;
   overflow-x: visible;
   overscroll-behavior: contain;
@@ -138,7 +179,7 @@
   padding: 8px 16px;
   align-self: flex-start; /* left side */
   border-radius: 30px;
-  max-width: 100%;
+  max-width: 80%;
   overflow-wrap: break-word;
   font-size: 0.950em;
 }
@@ -205,3 +246,46 @@
   color: #7c0030;
   margin-right: 8px;
 }
+/* Center the whole input area and cap its width */
+.inputForm {
+  width: 100%;
+  max-width: min(580px, 90vw);
+   /* center horizontally */
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+
+}
+
+/* Stack input and button vertically */
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px; /* space between input and button */
+}
+
+/* Make the input fill the available width */
+.input {
+  width: 100%;
+  max-width:700px;
+  box-sizing: border-box;
+  align-self: center;
+  box-sizing: border-box;
+  padding: 16px 40px;
+  overflow-x: visible;
+  display: block;
+  font-size: .925em;
+
+}
+
+/* Keep your existing glow via .button; this only sets width/placement */
+.buttonWide {
+  width: 43%;          /* “almost” as wide as the input */
+  align-self: center;  /* center the button under the input */
+  padding: 12px 26px;
+  font-size: .975em;
+}
+
+/* If you had a clearfix that floats things, neutralize it */
+.clearfix { float: none; }

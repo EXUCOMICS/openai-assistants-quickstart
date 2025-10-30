@@ -261,31 +261,36 @@ const scrollMessagesToBottom = () => {
   }
 
   return (
+    
     <div className={styles.chatContainer}>
 <div className={styles.messages} ref={messagesWrapRef}>
   {messages.map((msg, index) => (
     <Message key={index} role={msg.role} text={msg.text} />
   ))}
 </div>
-      <form
-        onSubmit={handleSubmit}
-        className={`${styles.inputForm} ${styles.clearfix}`}
-      >
-        <input
-          type="text"
-          className={styles.input}
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Ask & ye shall find, Seeker..."
-        />
-        <button
-          type="submit"
-          className={styles.button}
-          disabled={inputDisabled}
-        >
-          Send
-        </button>
-      </form>
+     <form onSubmit={handleSubmit} className={`${styles.inputForm} ${styles.clearfix}`}>
+  <div className={styles.inputWrapper}>
+    <input
+      type="text"
+      className={styles.input}
+      value={userInput}
+      onChange={(e) => setUserInput(e.target.value)}
+      placeholder="Ask & ye shall find, Seeker..."
+    />
+  </div>
+
+  {/* Keep your glow via styles.button; width via styles.buttonWide */}
+  <button
+    type="submit"
+    className={`${styles.button} ${styles.buttonWide}`}
+    disabled={inputDisabled}
+  >
+    Send
+  </button>
+</form>
+
+
+
     </div>
   );
 };
